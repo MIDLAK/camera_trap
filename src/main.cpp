@@ -1,5 +1,7 @@
 #include "../headers/ImageReader.h"
-#include "../headers/BackgroundExtractor.h"
+#include "../headers/SequentialBackgroundExtractor.h"
+#include "../headers/ParallelBackgroundExtractor.h"
+#include "../headers/ImageSaver.h"
 #include <iostream>
 #include <filesystem>
 
@@ -9,8 +11,19 @@ int main() {
 
     std::vector<std::vector<Pixel>> imagesPixels = reader.readImages();
 
-    for (const auto& pixels : imagesPixels) {
-        BackgroundExtractor::extract(pixels);
-    }
+    // Предполагается, что все изображения имеют одинаковый размер
+    int width = 640;
+    int height = 298;
+
+    // Последовательное извлечение фона
+    SequentialBackgroundExtractor seqExtractor;
+    std::vector<Pixel> sequentialBackground = seqExtractor.extract(imagesPixels);
+    ImageSaver::saveImage("sequential_background.png", sequentialBackground, width, height);
+
+    // Параллельное извлечение фона
+    ParallelBackgroundExtractor parExtractor;
+    std::vector<Pixel> parallelBackground = parExtractor.extract(imagesPixels);
+    ImageSaver::saveImage("parallel_background.png", parallelBackground, width, height);
+
     return 0;
 }
