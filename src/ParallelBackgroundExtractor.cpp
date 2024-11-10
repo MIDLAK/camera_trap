@@ -2,6 +2,9 @@
 #include <iostream>
 #include <iterator>
 
+
+#define THREADS_SCALE 5
+
 void ParallelBackgroundExtractor::extractPixels(
     const std::vector<std::vector<Pixel>>& imagesPixels, 
     std::vector<Pixel>& background, 
@@ -28,12 +31,9 @@ std::vector<Pixel> ParallelBackgroundExtractor::extract(
     std::vector<Pixel> background = imagesPixels[0];
 
     /* разделение пикселей по потокам */
-    int numThreads = std::thread::hardware_concurrency();
+    int numThreads = std::thread::hardware_concurrency() * THREADS_SCALE;
     int chunkSize = imageSize / numThreads;
     std::vector<std::thread> threads;
-
-    std::cout << "[info]: кол-во потоков: " << numThreads
-        << " (" << chunkSize << " пикселей на поток)" << std::endl;
 
     Barrier barrier(numThreads);
 

@@ -2,8 +2,10 @@
 #include "../headers/SequentialBackgroundExtractor.h"
 #include "../headers/ParallelBackgroundExtractor.h"
 #include "../headers/ImageSaver.h"
+#include "../headers/PerformanceTester.h"
 #include <iostream>
 #include <filesystem>
+#include <chrono>
 
 int main() {
     std::filesystem::path resourcesPath = std::filesystem::current_path() / "resources/images";
@@ -11,19 +13,23 @@ int main() {
 
     std::vector<std::vector<Pixel>> imagesPixels = reader.readImages();
 
-    // Предполагается, что все изображения имеют одинаковый размер
     int width = 640;
     int height = 298;
 
-    // Последовательное извлечение фона
+    /* последовательное выделение фона */
     SequentialBackgroundExtractor seqExtractor;
     std::vector<Pixel> sequentialBackground = seqExtractor.extract(imagesPixels);
-    ImageSaver::saveImage("sequential_background.png", sequentialBackground, width, height);
 
-    // Параллельное извлечение фона
+    /* параллельное выделение фона */
     ParallelBackgroundExtractor parExtractor;
     std::vector<Pixel> parallelBackground = parExtractor.extract(imagesPixels);
+
+    ImageSaver::saveImage("sequential_background.png", sequentialBackground, width, height);
     ImageSaver::saveImage("parallel_background.png", parallelBackground, width, height);
+
+    /* тесты */
+    PerformanceTester perfTester;
+    perfTester.runTests();
 
     return 0;
 }

@@ -15,7 +15,7 @@ void BackgroundExtractor::calculateBackground(
     std::vector<int> greenSum(end - start, 0);
     std::vector<int> blueSum(end - start, 0);
 
-    // Суммируем значения пикселей по каждому изображению
+    /* суммирование значений пикселей по каждому изображению */
     for (int i = 0; i < numImages; ++i) {
         for (int j = start; j < end; ++j) {
             redSum[j - start] += imagesPixels[i][j].red;
@@ -24,7 +24,7 @@ void BackgroundExtractor::calculateBackground(
         }
     }
 
-    // Рассчитываем среднее значение для каждого пикселя и сохраняем в фон
+    /* среднее значение для каждого пикселя и сохране в фон */
     for (int j = start; j < end; ++j) {
         background[j].red = redSum[j - start] / numImages;
         background[j].green = greenSum[j - start] / numImages;

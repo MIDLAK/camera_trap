@@ -12,7 +12,7 @@ void Barrier::arrive_and_wait() {
         waiting = 0;
         condition.notify_all();
     } else {
-        /* ожидание остальных потоков */
+        /* ждать до тех пор, пока все потоки не достигнут барьера */
         condition.wait(lock, [this] { return waiting == 0; });
     }
 }
