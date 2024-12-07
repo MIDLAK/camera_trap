@@ -24,8 +24,13 @@ int main() {
     ParallelBackgroundExtractor parExtractor;
     std::vector<Pixel> parallelBackground = parExtractor.extract(imagesPixels);
 
+    /* вычисление фона с помощью OpenMP */
+    ParallelBackgroundExtractor ompExtractor;
+    std::vector<Pixel> ompBackground = ompExtractor.extract(imagesPixels);
+
     ImageSaver::saveImage("sequential_background.png", sequentialBackground, width, height);
     ImageSaver::saveImage("parallel_background.png", parallelBackground, width, height);
+    ImageSaver::saveImage("omp_background.png", ompBackground, width, height);
 
     /* тесты */
     PerformanceTester perfTester;
