@@ -2,7 +2,6 @@
 #include <iostream>
 #include <iterator>
 
-
 #define THREADS_SCALE 5
 
 void ParallelBackgroundExtractor::extractPixels(
