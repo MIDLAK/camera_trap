@@ -1,4 +1,5 @@
 #include "../headers/ImageReader.h"
+#include "../headers/OpenMPBackgroundExtractor.h"
 #include "../headers/SequentialBackgroundExtractor.h"
 #include "../headers/ParallelBackgroundExtractor.h"
 #include "../headers/ImageSaver.h"
@@ -25,7 +26,7 @@ int main() {
     std::vector<Pixel> parallelBackground = parExtractor.extract(imagesPixels);
 
     /* вычисление фона с помощью OpenMP */
-    ParallelBackgroundExtractor ompExtractor;
+    OpenMPBackgroundExtractor ompExtractor;
     std::vector<Pixel> ompBackground = ompExtractor.extract(imagesPixels);
 
     ImageSaver::saveImage("sequential_background.png", sequentialBackground, width, height);
