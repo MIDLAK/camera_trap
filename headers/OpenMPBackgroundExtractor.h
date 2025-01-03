@@ -7,7 +7,6 @@
 class OpenMPBackgroundExtractor: public BackgroundExtractor {
 public:
     std::vector<Pixel> extract(const std::vector<std::vector<Pixel>>& imagesPixels) override;
-
 private:
     void extractPixels(
         const std::vector<std::vector<Pixel>>& imagesPixels, 
@@ -16,5 +15,4 @@ private:
         int end
     );
 };
-
 #endif

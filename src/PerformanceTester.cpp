@@ -10,7 +10,7 @@ void PerformanceTester::runTests() {
     std::cout << "---------------------------------------------------------------------------------------------------------" << std::endl;
 
     /* размеры генерируемых изображений */
-    int testSizes[][2] = {{320, 240}, {640, 480}, {1280, 720}, {1920, 1080}, {3840, 2160}, {30720, 17280}};
+    int testSizes[][2] = {{320, 240}, {640, 480}, {1280, 720}, {1920, 1080}, {3840, 2160}};
     int numTests = sizeof(testSizes) / sizeof(testSizes[0]);
 
     SequentialBackgroundExtractor seqExtractor;
